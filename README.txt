@@ -23,3 +23,14 @@ comments in persistence.xml for further instructions
 
 Once you make the change, you would need to redeploy the application. Run the following command
   mvn clean install war:exploded tomcat:redeploy
+
+
+mysql -uroot
+create database struts;
+mvn spring-boot:run
+mvn clean package
+
+cf push struts -p target/struts.war --random-route --no-start
+cf create-service p-mysql 100mb struts-mysql
+cf bind-service struts struts-mysql
+cf start struts
